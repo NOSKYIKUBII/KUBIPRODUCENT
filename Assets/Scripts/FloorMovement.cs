@@ -18,8 +18,8 @@ public class FloorMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        floorTile1.transform.position -= new Vector3(10f * Time.deltaTime, 0f, 0f);
-        floorTile2.transform.position -= new Vector3(10f * Time.deltaTime, 0f, 0f);
+        floorTile1.transform.position -= new Vector3(5f * Time.deltaTime * GameManager.instance.worldScrollingSpeed, 0f, 0f);
+        floorTile2.transform.position -= new Vector3(5f * Time.deltaTime * GameManager.instance.worldScrollingSpeed, 0f, 0f);
 
         if (floorTile2.transform.position.x < -1f)
         {

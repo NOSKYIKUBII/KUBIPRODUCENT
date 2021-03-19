@@ -9,6 +9,18 @@ public class Player : MonoBehaviour
     public float gravity;
     public float jumpForce;
 
+    bool isGrounded = false;
+
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Floor"))
+        {
+            isGrounded = true;
+        }
+        
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -16,16 +28,23 @@ public class Player : MonoBehaviour
         rigidbody = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
+        
+
+        if (isGrounded)
+        {
+            if (Input.GetKey(KeyCode.Space))
+            {
+                rigidbody.velocity = new Vector2(0f, jumpForce);
+                isGrounded = false;
+            }
+        }
 
         transform.Rotate(new Vector3(0f, -10f * Time.deltaTime * 0f));
 
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            rigidbody.velocity = new Vector2(0f, jumpForce);
-        }
+        
 
 
         rigidbody.AddForce(new Vector2(0f, gravity * Time.deltaTime));
