@@ -13,7 +13,7 @@ public class Cloud : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position -= new Vector3(2f * GameManager.instance.worldScrollingSpeed * Time.deltaTime, 0f);
+        transform.position -= new Vector3(GameManager.instance.worldScrollingSpeed * 0.1f, 0f);
 
         if (transform.position.x < -11.11)
         {
