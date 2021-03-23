@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
         {
             isGrounded = true;
         }
+        else if (collision.CompareTag("Platform"))
+        {
+            isGrounded = true;
+        }
         
     }
 

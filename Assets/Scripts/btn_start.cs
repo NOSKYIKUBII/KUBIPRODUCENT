@@ -10,5 +10,6 @@ public class btn_start : MonoBehaviour
     public void StartGame()
     {
         SceneManager.LoadScene("SampleScene");
+        MusicManager.instance.Click();
     }
 }

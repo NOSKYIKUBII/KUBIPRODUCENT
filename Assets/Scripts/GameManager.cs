@@ -10,20 +10,25 @@ public class GameManager : MonoBehaviour
 
     public float worldScrollingSpeed;
     public float score;
+    public float highestScore;
+    public float tempworldScrollingSpeed;
 
     public GameObject cloud;
     public GameObject BuffText;
+    public GameObject pauseMenu;
 
     public Text ScoreText;
 
-    public bool Paused = false;
+    public bool isPaused = false;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        highestScore = PlayerPrefs.GetFloat("PlayerScore");
+
         BuffText.SetActive(false);
-        InvokeRepeating("Clouds", 3, 2);
+        InvokeRepeating("Clouds", 3, Random.Range(2.5f, 4f));
 
         if (instance == null)
         {
@@ -35,25 +40,39 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isPaused)
+            {
+                Pause();
+            }
+            else
+            {
+                Resume();
+            }
+        }
+    }
+
     void FixedUpdate()
     {
         worldScrollingSpeed += 0.000005f;
         score += worldScrollingSpeed;
         ScoreText.text = score.ToString("0");
 
-        if(Input.GetKeyDown(KeyCode.Escape) && Paused == false)
+        
+
+
+
+
+
+
+        if (highestScore < score)
         {
-            Time.timeScale = 0;
-            Paused = true;
+            PlayerPrefs.SetFloat("PlayerScore", score);
+            PlayerPrefs.Save();
         }
-        /*
-        else if (Input.GetKeyDown(KeyCode.Escape) && Paused)
-        {
-            Time.timeScale = 1;
-            Paused = false;
-        }
-        */
     }
 
 
@@ -69,5 +88,26 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene("Menu");
         Debug.Log("CLICK");
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+        MusicManager.instance.Click();
+    }
+
+    public void Pause()
+    {
+        tempworldScrollingSpeed = worldScrollingSpeed;
+        worldScrollingSpeed = 0f;
+        pauseMenu.SetActive(true);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+    public void Resume()
+    {
+        MusicManager.instance.Click();
+        worldScrollingSpeed = tempworldScrollingSpeed;
+        pauseMenu.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
     }
 }

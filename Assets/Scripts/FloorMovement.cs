@@ -7,7 +7,7 @@ public class FloorMovement : MonoBehaviour
     public GameObject floorTile1;      //lewy
     public GameObject floorTile2;      //prawy
 
-    public GameObject Tile;
+    public GameObject [] Tile;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class FloorMovement : MonoBehaviour
         {
             floorTile1.transform.position += new Vector3(34.52f, 0f, 0f);
 
-            var newTile = Instantiate(Tile, floorTile2.transform.position + new Vector3(14.12f, 0, 0), Quaternion.identity);
+            var newTile = Instantiate(Tile[Random.Range(0, Tile.Length)], floorTile2.transform.position + new Vector3(14.12f, 0, 0), Quaternion.identity);
 
             Destroy(floorTile1);
 
