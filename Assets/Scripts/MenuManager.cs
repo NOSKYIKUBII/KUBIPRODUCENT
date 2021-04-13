@@ -17,6 +17,7 @@ public class MenuManager : MonoBehaviour
         {
            HighestScore.text = PlayerPrefs.GetFloat("PlayerScore").ToString("0");
         }
+        //MusicManager.instance.Music();
     }
 
     private void FixedUpdate()

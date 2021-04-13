@@ -7,21 +7,26 @@ public class MusicManager : MonoBehaviour
     public static MusicManager instance;
 
     public AudioClip clickAudio;
+    public AudioClip jumpAudio;
+    
+
 
     public AudioSource effectsSource;
+    
 
     private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
 
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
             DontDestroyOnLoad(effectsSource.gameObject);
+            
         }
         else
         {
@@ -41,4 +46,10 @@ public class MusicManager : MonoBehaviour
     {
         audioSource.PlayOneShot(clickAudio, 1f);
     }
+
+    public void Jump()
+    {
+        audioSource.PlayOneShot(jumpAudio, 1f);
+    }
+    
 }

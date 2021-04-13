@@ -21,11 +21,11 @@ public class FloorMovement : MonoBehaviour
         floorTile1.transform.position -= new Vector3(GameManager.instance.worldScrollingSpeed, 0f, 0f);
         floorTile2.transform.position -= new Vector3(GameManager.instance.worldScrollingSpeed, 0f, 0f);
 
-        if (floorTile2.transform.position.x < -1f)
+        if (floorTile2.transform.position.x < 0.5f)
         {
             floorTile1.transform.position += new Vector3(34.52f, 0f, 0f);
 
-            var newTile = Instantiate(Tile[Random.Range(0, Tile.Length)], floorTile2.transform.position + new Vector3(14.12f, 0, 0), Quaternion.identity);
+            var newTile = Instantiate(Tile[Random.Range(0, Tile.Length)], floorTile2.transform.position + new Vector3(26.77f, 0, 0), Quaternion.identity);
 
             Destroy(floorTile1);
 
