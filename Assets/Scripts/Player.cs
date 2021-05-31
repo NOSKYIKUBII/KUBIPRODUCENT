@@ -28,7 +28,9 @@ public class Player : MonoBehaviour
     public float gravity;
     public float jumpForce;
 
-    bool isGrounded;
+
+    public bool isGrounded;
+    public bool doubleJump;
 
 
 
@@ -122,13 +124,25 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (isGrounded)
+        //if (isGrounded)
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (Input.GetKeyDown(KeyCode.Space) && !GameManager.instance.cantJump)
+            if (!GameManager.instance.cantJump && isGrounded)
             {
+                doubleJump = true;
                 rigidbody.velocity = new Vector2(0f, jumpForce);
                 isGrounded = false;
                 MusicManager.instance.Jump();
+
+            }
+            else if (doubleJump)
+            {
+                doubleJump = false;
+                rigidbody.velocity = new Vector2(0f, jumpForce);
+                MusicManager.instance.Jump();
+
             }
         }
 
@@ -137,9 +151,13 @@ public class Player : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        if(isGrounded)
+        {
+            doubleJump = false;
+        }
 
         
+
 
         transform.Rotate(new Vector3(0f, -10f * Time.deltaTime * 0f));
 
